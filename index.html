@@ -1,0 +1,15 @@
+<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://js.pusher.com/2.1/pusher.min.js"></script>
+<script type="text/javascript"	>
+	var pusher = new Pusher('de504dc5763aeef9ff52');
+	var trades_channel = pusher.subscribe('live_trades');
+	trades_channel.bind('trade', function(data) 
+	{
+  		var request = $.ajax(
+  		{
+		  url: "db.php",
+		  type: "POST",
+		  data: { price : data.price, amount : data.amount }
+		});
+	});
+</script>
